@@ -4,6 +4,7 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.ztech.codechallenge.backend.model.PointOfSale;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public interface PointOfSaleRepository extends CrudRepository<PointOfSale, Long> {
 
     @Query("select p from PointOfSale p where within(p.coverageArea, :geometry) = true")
-    Optional<PointOfSale> searchBy(Geometry geometry);
+    Optional<PointOfSale> searchBy(@Param("geometry") Geometry geometry);
 
     boolean existsByDocument(String document);
 

@@ -9,10 +9,7 @@ import com.ztech.codechallenge.backend.validator.ValidationResult;
 import com.ztech.codechallenge.backend.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -30,7 +27,8 @@ public class PointOfSaleController {
     }
 
     @GetMapping("/pdv/{id}")
-    public PointOfSaleDTO findById(Long id) {
+    public PointOfSaleDTO findById(
+        @PathVariable("id")  Long id) {
         return pointOfSaleService.findById(id).map(pointOfSaleDataConverter::convertTo).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
@@ -43,7 +41,6 @@ public class PointOfSaleController {
     @PostMapping("/pdv")
     public void save(
         @RequestBody PointOfSaleDTO dto) {
-
         final ValidationResult validationResult = pointOfSaleDTOValidator.validate(dto);
         if (validationResult.hasError()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, validationResult.getErrorMessage());
