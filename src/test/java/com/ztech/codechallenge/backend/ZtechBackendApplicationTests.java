@@ -54,11 +54,10 @@ public class ZtechBackendApplicationTests {
 	}
 
 	@Test
-	//@Ignore
 	public void searchByGeoPoint() throws Exception {
         PointOfSaleSearchDTO searchDTO = new PointOfSaleSearchDTO();
-        searchDTO.setLatitude(-43.36556);
-        searchDTO.setLongitude(-22.99669);
+        searchDTO.setLatitude(-49.36299);
+        searchDTO.setLongitude(-25.4515);
 
         String requestContent = JsonUtils.mapToJson(searchDTO);
 
@@ -72,7 +71,7 @@ public class ZtechBackendApplicationTests {
         String content = mvcResult.getResponse().getContentAsString();
         PointOfSaleDTO dto = JsonUtils.mapFromJson(content, PointOfSaleDTO.class);
         assertNotNull(dto);
-        assertSame(dto.getId(), 1L);
+        assertSame(dto.getId(), 2L);
     }
 
     @Test
