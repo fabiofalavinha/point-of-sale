@@ -40,7 +40,7 @@ class DefaultPointOfSaleService implements PointOfSaleService {
 
     @Transactional
     public Optional<PointOfSale> searchBy(double latitude, double longitude) {
-        final Point point = geometryFactory.createPoint(new Coordinate(longitude, latitude));
-        return StreamSupport.stream(pointOfSaleRepository.findAll().spliterator(), true).filter(p -> p.getCoverageArea().intersects(point)).findFirst();
+        final Point point = geometryFactory.createPoint(new Coordinate(latitude, longitude));
+        return StreamSupport.stream(pointOfSaleRepository.findAll().spliterator(), true).filter(p -> point.intersects(p.getCoverageArea()) || point.touches(p.getCoverageArea())).findFirst();
     }
 }

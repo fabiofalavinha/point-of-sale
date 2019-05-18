@@ -57,8 +57,8 @@ public class ZtechBackendApplicationTests {
 	//@Ignore
 	public void searchByGeoPoint() throws Exception {
         PointOfSaleSearchDTO searchDTO = new PointOfSaleSearchDTO();
-        searchDTO.setLatitude(-43.297337);
-        searchDTO.setLongitude(-23.013538);
+        searchDTO.setLatitude(-43.36556);
+        searchDTO.setLongitude(-22.99669);
 
         String requestContent = JsonUtils.mapToJson(searchDTO);
 

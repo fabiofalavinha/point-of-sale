@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface PointOfSaleRepository extends CrudRepository<PointOfSale, Long> {
 
-    @Query("select p from PointOfSale p where within(:point, p.coverageArea) = true")
+    @Query("select p from PointOfSale p where intersects(:point, p.coverageArea) = true")
     Optional<PointOfSale> searchBy(@Param("point") Point point);
 
     boolean existsByDocument(String document);
