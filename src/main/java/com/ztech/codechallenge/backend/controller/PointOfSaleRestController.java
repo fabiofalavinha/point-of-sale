@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
-public class PointOfSaleController {
+public class PointOfSaleRestController {
 
     private final PointOfSaleService pointOfSaleService;
     private final DataConverter<PointOfSaleDTO, PointOfSale> pointOfSaleDataConverter;
     private final Validator<PointOfSaleDTO> pointOfSaleDTOValidator;
 
     @Autowired
-    public PointOfSaleController(PointOfSaleService pointOfSaleService, DataConverter<PointOfSaleDTO, PointOfSale> pointOfSaleDataConverter, Validator<PointOfSaleDTO> pointOfSaleDTOValidator) {
+    public PointOfSaleRestController(PointOfSaleService pointOfSaleService, DataConverter<PointOfSaleDTO, PointOfSale> pointOfSaleDataConverter, Validator<PointOfSaleDTO> pointOfSaleDTOValidator) {
         this.pointOfSaleService = pointOfSaleService;
         this.pointOfSaleDataConverter = pointOfSaleDataConverter;
         this.pointOfSaleDTOValidator = pointOfSaleDTOValidator;
