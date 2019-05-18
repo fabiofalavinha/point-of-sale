@@ -1,0 +1,17 @@
+type PointOfSaleDTO {
+    id: ID!
+    tradingName: String!
+    ownerName: String!
+    document: String!
+    address: String!
+    coverageArea: String!
+}
+
+type Query {
+    findById(id: Int): PointOfSaleDTO
+    searchByGeoPoint(latitude: Float, longitude: Float): PointOfSaleDTO
+}
+
+type Mutation {
+    createPointOfSale(id: ID!, tradingName: String!, ownerName: String!, document: String, address: String!, coverageArea: String!) : PointOfSaleDTO!
+}
