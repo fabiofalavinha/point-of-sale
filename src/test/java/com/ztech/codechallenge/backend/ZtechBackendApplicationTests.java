@@ -53,8 +53,8 @@ public class ZtechBackendApplicationTests {
 		assertSame(dto.getId(), pointOfSaleId);
 	}
 
-	//@Test
-	@Ignore
+	@Test
+	//@Ignore
 	public void searchByGeoPoint() throws Exception {
         PointOfSaleSearchDTO searchDTO = new PointOfSaleSearchDTO();
         searchDTO.setLatitude(-43.297337);

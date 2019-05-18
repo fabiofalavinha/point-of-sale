@@ -1,6 +1,6 @@
 package com.ztech.codechallenge.backend.persistence;
 
-import com.vividsolutions.jts.geom.Geometry;
+import com.vividsolutions.jts.geom.Point;
 import com.ztech.codechallenge.backend.model.PointOfSale;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -12,8 +12,8 @@ import java.util.Optional;
 @Repository
 public interface PointOfSaleRepository extends CrudRepository<PointOfSale, Long> {
 
-    @Query("select p from PointOfSale p where within(p.coverageArea, :geometry) = true")
-    Optional<PointOfSale> searchBy(@Param("geometry") Geometry geometry);
+    @Query("select p from PointOfSale p where within(:point, p.coverageArea) = true")
+    Optional<PointOfSale> searchBy(@Param("point") Point point);
 
     boolean existsByDocument(String document);
 
