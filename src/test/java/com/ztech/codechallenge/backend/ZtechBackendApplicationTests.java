@@ -1,11 +1,10 @@
 package com.ztech.codechallenge.backend;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ztech.codechallenge.backend.dto.PointOfSaleDTO;
 import com.ztech.codechallenge.backend.dto.PointOfSaleSearchDTO;
+import com.ztech.codechallenge.backend.util.JsonUtils;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -20,8 +19,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.io.IOException;
-
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -34,16 +31,6 @@ public class ZtechBackendApplicationTests {
 
 	@Autowired
 	private WebApplicationContext webApplicationContext;
-
-	private <T> T mapFromJson(String json, Class<T> clazz) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		return objectMapper.readValue(json, clazz);
-	}
-
-    private String mapToJson(Object obj) throws JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.writeValueAsString(obj);
-    }
 
 	@Before
 	public void setUp() {
@@ -61,7 +48,7 @@ public class ZtechBackendApplicationTests {
 		assertEquals(200, status);
 
 		String content = mvcResult.getResponse().getContentAsString();
-		PointOfSaleDTO dto = mapFromJson(content, PointOfSaleDTO.class);
+		PointOfSaleDTO dto = JsonUtils.mapFromJson(content, PointOfSaleDTO.class);
 		assertNotNull(dto);
 		assertSame(dto.getId(), pointOfSaleId);
 	}
@@ -73,7 +60,7 @@ public class ZtechBackendApplicationTests {
         searchDTO.setLatitude(-43.297337);
         searchDTO.setLongitude(-23.013538);
 
-        String requestContent = mapToJson(searchDTO);
+        String requestContent = JsonUtils.mapToJson(searchDTO);
 
         String uri = "/pdv/search";
         MvcResult mvcResult =
@@ -83,7 +70,7 @@ public class ZtechBackendApplicationTests {
         assertEquals(200, status);
 
         String content = mvcResult.getResponse().getContentAsString();
-        PointOfSaleDTO dto = mapFromJson(content, PointOfSaleDTO.class);
+        PointOfSaleDTO dto = JsonUtils.mapFromJson(content, PointOfSaleDTO.class);
         assertNotNull(dto);
         assertSame(dto.getId(), 1L);
     }
