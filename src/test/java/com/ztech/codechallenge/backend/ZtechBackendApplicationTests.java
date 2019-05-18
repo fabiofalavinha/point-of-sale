@@ -1,12 +1,9 @@
 package com.ztech.codechallenge.backend;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ztech.codechallenge.backend.dto.PointOfSaleDTO;
 import com.ztech.codechallenge.backend.dto.PointOfSaleSearchDTO;
 import com.ztech.codechallenge.backend.util.JsonUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
