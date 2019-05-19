@@ -2,52 +2,31 @@ package com.ztech.codechallenge.backend.controller;
 
 import com.ztech.codechallenge.backend.dto.PointOfSaleDTO;
 import com.ztech.codechallenge.backend.dto.PointOfSaleSearchDTO;
-import com.ztech.codechallenge.backend.model.PointOfSale;
-import com.ztech.codechallenge.backend.parser.DataConverter;
-import com.ztech.codechallenge.backend.service.PointOfSaleService;
-import com.ztech.codechallenge.backend.validator.ValidationResult;
-import com.ztech.codechallenge.backend.validator.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 @RestController
 public class PointOfSaleRestController {
 
-    private final PointOfSaleService pointOfSaleService;
-    private final DataConverter<PointOfSaleDTO, PointOfSale> pointOfSaleDataConverter;
-    private final Validator<PointOfSaleDTO> pointOfSaleDTOValidator;
+    private final PointOfSaleBusinessDelegate pointOfSaleBusinessDelegate;
 
     @Autowired
-    public PointOfSaleRestController(PointOfSaleService pointOfSaleService, DataConverter<PointOfSaleDTO, PointOfSale> pointOfSaleDataConverter, Validator<PointOfSaleDTO> pointOfSaleDTOValidator) {
-        this.pointOfSaleService = pointOfSaleService;
-        this.pointOfSaleDataConverter = pointOfSaleDataConverter;
-        this.pointOfSaleDTOValidator = pointOfSaleDTOValidator;
+    public PointOfSaleRestController(PointOfSaleBusinessDelegate pointOfSaleBusinessDelegate) {
+        this.pointOfSaleBusinessDelegate = pointOfSaleBusinessDelegate;
     }
 
     @GetMapping("/pdv/{id}")
-    public PointOfSaleDTO findById(
-        @PathVariable("id")  Long id) {
-        return pointOfSaleService.findById(id).map(pointOfSaleDataConverter::convertTo).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public PointOfSaleDTO findById(@PathVariable("id")  Long id) {
+        return pointOfSaleBusinessDelegate.findPointOfSaleById(id);
     }
 
     @PostMapping("/pdv/search")
-    public PointOfSaleDTO searchByGeoPoint(
-        @RequestBody PointOfSaleSearchDTO dto) {
-        return pointOfSaleService.searchBy(dto.getLatitude(), dto.getLongitude()).map(pointOfSaleDataConverter::convertTo).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public PointOfSaleDTO searchByGeoPoint(@RequestBody PointOfSaleSearchDTO dto) {
+        return pointOfSaleBusinessDelegate.searchPointOfSaleByGeoPoint(dto);
     }
 
     @PostMapping("/pdv")
-    public void save(
-        @RequestBody PointOfSaleDTO dto) {
-        final ValidationResult validationResult = pointOfSaleDTOValidator.validate(dto);
-        if (validationResult.hasError()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, validationResult.getErrorMessage());
-        }
-
-        final PointOfSale pointOfSale = pointOfSaleDataConverter.convertFrom(dto);
-
-        pointOfSaleService.save(pointOfSale);
+    public void save(@RequestBody PointOfSaleDTO dto) {
+        pointOfSaleBusinessDelegate.savePointOfSale(dto);
     }
 }

@@ -61,7 +61,7 @@ class PointOfSaleValidator implements Validator<PointOfSaleDTO> {
         }
 
         int digit = 11 - sum % 11;
-        documentCalculated = (new StringBuilder(String.valueOf(documentCalculated))).append(digit != 10 && digit != 11 ? Integer.toString(digit) : "0").toString();
+        documentCalculated = new StringBuilder(documentCalculated).append(digit != 10 && digit != 11 ? Integer.toString(digit) : "0").toString();
         sum = 0;
         for (int i = 0; i < 5; i++) {
             if (documentArray[i] - 48 >= 0 && documentArray[i] - 48 <= 9) {
@@ -76,7 +76,7 @@ class PointOfSaleValidator implements Validator<PointOfSaleDTO> {
         }
 
         digit = 11 - sum % 11;
-        documentCalculated = (new StringBuilder(String.valueOf(documentCalculated))).append(digit != 10 && digit != 11 ? Integer.toString(digit) : "0").toString();
+        documentCalculated = new StringBuilder(documentCalculated).append(digit != 10 && digit != 11 ? Integer.toString(digit) : "0").toString();
 
         return document.equals(documentCalculated);
     }

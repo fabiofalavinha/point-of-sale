@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
-import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -41,6 +40,7 @@ class DefaultPointOfSaleService implements PointOfSaleService {
     @Transactional
     public Optional<PointOfSale> searchBy(double latitude, double longitude) {
         final Point point = geometryFactory.createPoint(new Coordinate(latitude, longitude));
-        return StreamSupport.stream(pointOfSaleRepository.findAll().spliterator(), true).filter(p -> point.intersects(p.getCoverageArea()) || point.touches(p.getCoverageArea())).findFirst();
+        return StreamSupport.stream(pointOfSaleRepository.findAll().spliterator(), true)
+            .filter(p -> point.intersects(p.getCoverageArea()) || point.touches(p.getCoverageArea())).findFirst();
     }
 }
