@@ -17,7 +17,7 @@
 
 > $ mvn test -e
 
-As a **unit** the REST Api controller will be test
+For the unit test, the REST Api Controller will be the unit on this tests
 
 ## Runinng Application
 
