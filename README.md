@@ -7,18 +7,20 @@
 
 ## Building Application
 
-- Clone this repository
-- At the repository directory **run**:
 > $ mvn compile -e
 
 ## Packaging Application
 
-- At the repository directory **run**:
 > $ mvn clean package -e
+
+## Testing Application (using unit test)
+
+> $ mvn test -e
+
+As a **unit** the REST Api controller will be test
 
 ## Runinng Application
 
-- At the repository directory **run**:
 > $ mvn spring:run -e
 
 This is a **Spring Boot** application and will start Tomcat as Web Application Server at port **8080**.
