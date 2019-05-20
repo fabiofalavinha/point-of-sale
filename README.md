@@ -30,7 +30,7 @@ REST Api and GraphQL will be avaible at:
 > http://localhost:8080
 
 Note, use **/pdv** as context path for access the REST Api. Also, use **/graphiql** for GraphQL IDE. GraphQL IDE will be available 
-as a online editor to test the GraphQL Api on this application.
+as an online editor to test the GraphQL Api on this application.
 
 ## Checking Application is UP
 
